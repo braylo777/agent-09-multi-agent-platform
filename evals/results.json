@@ -1,0 +1,237 @@
+{
+  "project": "agent-09-multi-agent-platform",
+  "endpoint": "https://agent-09-multi-agent-platform.braylo777.workers.dev",
+  "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "run_at": "2026-10-28T00:24:33.762Z",
+  "latency_ms": {
+    "n": 20,
+    "p50": 5984,
+    "p95": 9660,
+    "note": "client-side wall clock per HTTP request, box to Cloudflare edge"
+  },
+  "metrics": {
+    "routing_accuracy": {
+      "passed": 20,
+      "total": 20,
+      "rate": 1,
+      "definition": "router chose the labelled agent (4 built-in agents, 5 tasks each)"
+    },
+    "confusion": {
+      "researcher": {
+        "researcher": 5
+      },
+      "coder": {
+        "coder": 5
+      },
+      "copywriter": {
+        "copywriter": 5
+      },
+      "analyst": {
+        "analyst": 5
+      }
+    },
+    "router_fallbacks": 0
+  },
+  "cases": [
+    {
+      "task": "Explain how photosynthesis works.",
+      "expected": "researcher",
+      "got": "researcher",
+      "why": "explains complex topics with clear bullet points",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 7061
+    },
+    {
+      "task": "What causes inflation? Give the main factors.",
+      "expected": "researcher",
+      "got": "researcher",
+      "why": "Explains topics and facts with clear bullet points",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 4431
+    },
+    {
+      "task": "Summarize the history of the Roman Empire in bullet points.",
+      "expected": "researcher",
+      "got": "researcher",
+      "why": "explains topics and facts with clear bullet points",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 7216
+    },
+    {
+      "task": "How do vaccines train the immune system?",
+      "expected": "researcher",
+      "got": "researcher",
+      "why": "Explaining complex biological topics",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 9522
+    },
+    {
+      "task": "What is the difference between a virus and a bacterium?",
+      "expected": "researcher",
+      "got": "researcher",
+      "why": "Explaining biological differences requires factual information and clear bullet points",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 7330
+    },
+    {
+      "task": "Write a Python function that dedupes a list while keeping order.",
+      "expected": "coder",
+      "got": "coder",
+      "why": "requires code writing",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 2954
+    },
+    {
+      "task": "Fix this JavaScript: const x = [1,2,3].map(n => n * 2",
+      "expected": "coder",
+      "got": "coder",
+      "why": "code correction",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 1841
+    },
+    {
+      "task": "Write a SQL query to find the top 5 customers by revenue.",
+      "expected": "coder",
+      "got": "coder",
+      "why": "SQL query requires code writing",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 2863
+    },
+    {
+      "task": "Implement binary search in Go.",
+      "expected": "coder",
+      "got": "coder",
+      "why": "binary search implementation requires code",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 7436
+    },
+    {
+      "task": "Write a bash one-liner to count lines in all .js files.",
+      "expected": "coder",
+      "got": "coder",
+      "why": "task requires code",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 2355
+    },
+    {
+      "task": "Write an Instagram caption for a new coffee shop opening.",
+      "expected": "copywriter",
+      "got": "copywriter",
+      "why": "creating engaging marketing content",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 1768
+    },
+    {
+      "task": "Draft a cold email pitching window cleaning to offices.",
+      "expected": "copywriter",
+      "got": "copywriter",
+      "why": "email marketing expertise",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 5984
+    },
+    {
+      "task": "Write a catchy tagline for an AI receptionist product.",
+      "expected": "copywriter",
+      "got": "copywriter",
+      "why": "tagline creation is a marketing task",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 1447
+    },
+    {
+      "task": "Write three tweet ideas announcing our summer sale.",
+      "expected": "copywriter",
+      "got": "copywriter",
+      "why": "summer sale announcement requires marketing copy",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 3080
+    },
+    {
+      "task": "Write a short landing page headline and subhead for a dog grooming service.",
+      "expected": "copywriter",
+      "got": "copywriter",
+      "why": "creating marketing copy",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 2375
+    },
+    {
+      "task": "Should I charge $99 or $149/month for an AI receptionist for dentists?",
+      "expected": "analyst",
+      "got": "analyst",
+      "why": "Pricing decision requires business analysis",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 9891
+    },
+    {
+      "task": "Compare leasing vs buying a delivery van for a small bakery.",
+      "expected": "analyst",
+      "got": "analyst",
+      "why": "business decision requiring pros/cons and financial analysis",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 9006
+    },
+    {
+      "task": "What are the pros and cons of opening a second location next year?",
+      "expected": "analyst",
+      "got": "analyst",
+      "why": "business analysis and decision making",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 9660
+    },
+    {
+      "task": "Estimate the break-even point if fixed costs are $5k/month and margin is $25/unit.",
+      "expected": "analyst",
+      "got": "analyst",
+      "why": "break-even analysis requires financial calculations",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 8235
+    },
+    {
+      "task": "Should a 10-person agency hire a full-time salesperson or use freelancers?",
+      "expected": "analyst",
+      "got": "analyst",
+      "why": "business decision analysis",
+      "fallback": false,
+      "correct": true,
+      "http": 200,
+      "ms": 7453
+    }
+  ]
+}
