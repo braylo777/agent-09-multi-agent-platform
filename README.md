@@ -22,12 +22,12 @@ flowchart LR
 ```
 
 ## How it works
-- `src/platform.js`: 4 built-in agents (researcher, coder, copywriter, analyst), custom agents (validated, capped at 30), JSON router with fallback, metrics.
-- `src/index.js`: `/api/run`, `/api/agents` (GET/POST), `/api/metrics`.
+- `src/agent09/platform.py` and `worker/src/platform.rs`: 4 built-in agents (researcher, coder, copywriter, analyst), custom agents (validated, capped at 30), JSON router with fallback, metrics.
+- `worker/src/platform.rs` (router) and `worker/src/worker_entry.rs`: `/api/run`, `/api/agents` (GET/POST), `/api/metrics`.
 - Runs serverless on Cloudflare Workers with the free Workers AI tier (`@cf/meta/llama-3.3-70b-instruct-fp8-fast`); 5 requests/min per IP keeps the demo free.
 
 ## Eval results
-Measured against the **live** deployment with real model calls (`node evals/run.mjs`), run 2026-10-27 19:24 CT. Raw per-case output: [`evals/results.json`](evals/results.json). Small sample sizes, kept small to stay inside the free daily model quota, so read these as indicative, not definitive.
+Measured against the **live** deployment with real model calls (`python3 evals/run.py`), run 2026-10-27 19:24 CT. Raw per-case output: [`evals/results.json`](evals/results.json). Small sample sizes, kept small to stay inside the free daily model quota, so read these as indicative, not definitive.
 
 | Metric | Result |
 |---|---|
@@ -36,16 +36,19 @@ Measured against the **live** deployment with real model calls (`node evals/run.
 | Latency p50 / p95 (end-to-end HTTP) | 5984 ms / 9660 ms (n=20) |
 
 ## Tests
-10/10 unit tests pass (`npm test`, Node 20+, the LLM is mocked so they run offline).
+Python: 8 tests pass; Rust: 3 test functions pass (the LLM and KV are mocked, so they run offline). A scripted scenario (8 routed tasks with odd router outputs, 9 agent-creation attempts, metrics and listing) gives identical results for the old JavaScript, the Python and the Rust code.
 
 ## Run it
 ```bash
-npm install
-npm test               # offline unit tests
-node evals/run.mjs     # live evals (BASE=http://localhost:8787 for local)
-npx wrangler dev       # local; Workers AI via your Cloudflare login
-npx wrangler deploy    # free tier, no paid API keys
+python3 -m pytest                      # Python tests
+cd worker && cargo test                # Rust tests
+cd worker && worker-build --release    # build the Worker (wasm)
+BASE=http://localhost:8787 python3 evals/run.py   # live evals
+wrangler dev                           # local; Workers AI via your Cloudflare login
+wrangler deploy                        # free tier, no paid API keys
 ```
+
+The previous JavaScript version is on the `legacy-js` branch and the `pre-pycrust` tag.
 
 ## License
 MIT
